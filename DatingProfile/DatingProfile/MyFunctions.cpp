@@ -3,6 +3,7 @@
 #include <string>
 #include <math.h>
 #include "profile.h"
+#include "MyFunctions.h"
 
 bool exitCond() {
     bool SpellCheckExit = true;
@@ -42,5 +43,40 @@ std::string InputClean() {
     std::cin >> dirtyInput;
     
     return dirtyInput;
+
+}
+
+//template <typename t>
+//void print(t text ) {
+//
+//    std::cout << text << std::endl;
+//
+//}
+
+
+//String Splitter
+
+std::vector<std::string> splitstring(const string& profileData) 
+{
+    int startIndex = 0;
+    int stopIndex = 0;
+    std::vector<std::string> result;
+    std::vector<char> garbage;
+
+
+    for (int i = 0; i <= profileData.size(); i++) {
+
+        if (i == profileData.size() || profileData[i] == ',') {
+            stopIndex = i;
+            string temp;
+
+            temp = profileData.substr(startIndex, stopIndex - startIndex);
+            startIndex = stopIndex + 1;
+            result.push_back(temp);
+            
+        }
+    }
+
+    return result;
 
 }

@@ -1,25 +1,19 @@
 // class for Profile
 #include <string>
 #include <vector>
+#include <iostream>
 
 //Declaration for std cout / string / vector
 using std::string;
 using std::vector;
 
 class profile {
-    //attribute for Constructor
-    string init_vorname;
-    string init_nachname;
-    int init_age;
-    string init_pronouns;
-    int init_id_user;
-
     //attribute
     string vorname;
     string nachname;
     int age; 
     string pronouns;
-    int id_user;
+    int id_user=0;
 
     string city; 
     string country;
@@ -37,8 +31,9 @@ class profile {
 
     public:
 
+        static vector<profile*> dataObjects;
         // Constructor
-        profile(int init_id_user, string init_vorname, string init_nachname, int init_age, string init_pronouns);
+        profile(int id_user, string vorname, string nachname, int age, string pronouns);
 
         // Get Methodes
         string get_name();
@@ -50,8 +45,10 @@ class profile {
 
         // Set Methods        
         void set_city(string new_city);
+        void set_country(string new_country);
         void set_hobbies(vector<string> new_hobbies);
         void set_pronouns(string new_pronouns);
+
 
 
 };

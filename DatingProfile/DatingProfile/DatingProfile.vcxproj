@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="GenerateRandomProfiles.cpp" />
     <ClCompile Include="MyFunctions.cpp" />
     <ClCompile Include="profile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GenerateRandomProfiles.h" />
     <ClInclude Include="MyFunctions.h" />
     <ClInclude Include="profile.h" />
   </ItemGroup>

@@ -24,12 +24,18 @@
     <ClCompile Include="MyFunctions.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="GenerateRandomProfiles.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="profile.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="MyFunctions.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateRandomProfiles.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

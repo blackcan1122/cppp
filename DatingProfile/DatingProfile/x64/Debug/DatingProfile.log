@@ -1,4 +1,3 @@
 ﻿  App.cpp
-  MyFunctions.cpp
-  Code wird generiert...
+D:\Hax0rStuff\DatingProfile\DatingProfile\App.cpp(79,45): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
   DatingProfile.vcxproj -> D:\Hax0rStuff\DatingProfile\x64\Debug\DatingProfile.exe
