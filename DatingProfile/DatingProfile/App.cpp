@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include "GenerateRandomProfiles.h"
+#include <fstream>
 
 
 int main() {
@@ -18,16 +19,16 @@ int main() {
     bool loopcheck = false;
     int amountFakeProfiles;
 
-    std::string ProfileData; // User eingabe über Hauptdaten des Profils
-    std::vector<std::string> ProfileDataSplit; // Gesplittete Variante der Hauptdaten
+    std::string ProfileData; // User input for Profile Init
+    std::vector<std::string> ProfileDataSplit; // Splitted variant of User Input 
 
-    std::string objectName; // Wichtig zur benamung des Objekts.
+    std::string objectName; // Is Used for Naming the Object
 
 
-    std::vector<std::string> savedVornamen;     //Speichert alle erstellen Vornamen
-    std::vector<std::string> savedNachname;     //Speichert alle erstellen Nachnamen     
-    std::vector<int> savedAge;          //Speichert alle erstellen Alter
-    std::vector<std::string> savedPronoun;      //Speichert alle erstellen Pronomen
+    std::vector<std::string> savedVornamen;     //Saves all Variables for Profiles
+    std::vector<std::string> savedNachname;     
+    std::vector<int> savedAge;        
+    std::vector<std::string> savedPronoun;      
     std::vector<std::string> savedCity;
     std::vector<std::string> savedCountry;
     std::vector<std::vector<std::string>> savedHobbies;
@@ -50,7 +51,9 @@ int main() {
         print("4) Edit Profile");
         print("5) List all avaiable Profiles");
         print("6) Generate Random Profile Data");
-        print("7) Exit");
+        print("7) Save to File");
+        print("8) LoadDataset");  // Need implementation yet
+        print("9) Exit");
         loopcheck = true;
         std::cin >> menu;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -365,8 +368,47 @@ int main() {
 
             
         }
+        else if (menu == 7)
+        {
+            std::ofstream outFile("Dataset.txt");
+            if (outFile.is_open())
+            {
+                for (int i = 0; i < savedVornamen.size(); i++)
+                {
 
-        else if (menu == 7) 
+                    std::string tempVorname = savedVornamen[i];
+                    std::string tempNachname = savedNachname[i];
+                    int tempAge = savedAge[i];
+                    std::string tempPronouns = savedPronoun[i];
+                    std::string tempCity = savedCity[i];
+                    std::string tempCountry = savedCountry[i];
+
+                    outFile << tempVorname << ",";
+                    outFile << tempNachname << ",";
+                    outFile << tempAge << ",";
+                    outFile << tempPronouns << ",";
+                    outFile << tempCity << ",";
+                    outFile << tempCountry << ",";
+
+                    for (int j = 0; j < savedHobbies[i].size(); j++) {
+
+                        std::string tempHobbies = savedHobbies[i][j];
+                        outFile << tempHobbies << ",";
+
+                    }
+                    outFile << "\r\n";
+                }
+                outFile.close();
+                print("Dataset was succesfully written to file!");
+            }
+            else 
+            {
+                print("Problem with writing File!");
+            }
+
+        
+        }
+        else if (menu == 8) 
         {
 
             // Exit Condition

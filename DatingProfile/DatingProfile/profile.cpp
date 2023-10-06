@@ -33,8 +33,7 @@ string profile::get_name() {
 
 
 int profile::calculate_age(int birthday[3]) {
-    // Implementierung zur Berechnung des Alters
-    // Hier sollte der Code zur Altersberechnung stehen
+    
     return 0;
 }
 

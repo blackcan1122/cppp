@@ -41,13 +41,13 @@ std::vector<std::string> countries =
 
 std::vector<std::string> hobbies = {
     "Lesen", "Sport", "Gaming", "Reisen", "Kochen", "Malen", "Musik", "Wandern", "Fotografie", "Tanzen",
-    "Basteln", "Angeln", "Gärtnern", "Theater", "Schwimmen", "Fahrradfahren", "Klettern", "Skifahren", "Surfen", "Yoga"
+    "Basteln", "Angeln", "Gärtnern", "Theater", "Schwimmen", "Fahrrad fahren", "Klettern", "Skifahren", "Surfen", "Yoga"
 };
 
 std::vector<RandomPeopleStruct> fakeProfile(int Anzahl, int alreadyExisting)
 {
 
-    // Attribute der Funktion
+    // Attributes of Functions
 
     std::vector<RandomPeopleStruct> result;
 
@@ -58,7 +58,7 @@ std::vector<RandomPeopleStruct> fakeProfile(int Anzahl, int alreadyExisting)
     std::string tempCities;
     std::string tempCountries;
     std::vector<std::string> tempHobbies;
-    // Erstellen von Allen altern zwischen 18 und 35
+    // Creation of Ages between 18 and 35
     std::vector<int> ages;
     for (int i = 18; i <= 35; i++) {
         ages.push_back(i);
@@ -70,14 +70,14 @@ std::vector<RandomPeopleStruct> fakeProfile(int Anzahl, int alreadyExisting)
     for (int i = 0; i < Anzahl; i++)
     {
         int id = alreadyExisting + i;
-        tempName = firstNames[rand() % firstNames.size()];              // Holt sich ein random Firstname abhängig vom index von 0 bis modulo der größe des Vektors geht
+        tempName = firstNames[rand() % firstNames.size()];              // Get a random First name depending on Rand modulo the size of the vector
         templastName = lastNames[rand() % lastNames.size()];
         tempPronouns = pronouns[rand() % pronouns.size()];
         tempCities = cities[rand() % cities.size()];
         tempCountries = countries[rand() % countries.size()];
         tempAge = ages[rand() % ages.size()];
-        tempHobbies.clear();                                            // Damit temp hobbies wieder leer ist und neu befüllt werden kann, wird es hier geleert
-        for (int j = 0; j < rand() % 6 + 4; j++)                        // Holt sich 4 - 10 random hobbies und befüllt damit temp hobbies
+        tempHobbies.clear();                                            // clearing hobbies so it can be filled again
+        for (int j = 0; j < rand() % 6 + 4; j++)                        
         {
             tempHobbies.push_back(hobbies[rand()%hobbies.size()]);
         }
