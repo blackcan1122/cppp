@@ -1,8 +1,10 @@
-﻿  GenerateRandomProfiles.cpp
+﻿  App.cpp
+D:\Hax0rStuff\DatingProfile\DatingProfile\App.cpp(79,45): warning C4267: "=": Konvertierung von "size_t" nach "int", Datenverlust möglich
+  GenerateRandomProfiles.cpp
 D:\Hax0rStuff\DatingProfile\DatingProfile\GenerateRandomProfiles.cpp(68,15): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
   Code wird generiert.
-  16 of 578 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  257 of 530 functions (48.5%) were compiled, the rest were copied from previous compilation.
+    144 functions were new in current compilation
+    77 functions had inline decision re-evaluated but remain unchanged
   Codegenerierung ist abgeschlossen.
   DatingProfile.vcxproj -> D:\Hax0rStuff\DatingProfile\x64\Release\DatingProfile.exe
