@@ -3,12 +3,16 @@
 #include <string>
 #include <math.h>
 #include "MyFunctions.h"
+
+#include <conio.h>
 #include <sys/stat.h>
 #include <locale>
 #include <filesystem>
 #include <fstream>
 #include <sstream>
 
+
+//Exit Condition abfrage
 bool exitCond() {
     bool SpellCheckExit = true;
     char input_user;
@@ -40,21 +44,15 @@ bool exitCond() {
     return NULL;
 }
 
+
+// Cleant den input
 void InputClean() {
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-//template <typename t>
-//void print(t text ) {
-//
-//    std::cout << text << std::endl;
-//
-//}
-
 
 //String Splitter
-
 std::vector<std::string> splitstring(const std::string& profileData, char seperator) 
 {
     int startIndex = 0;
@@ -81,8 +79,7 @@ std::vector<std::string> splitstring(const std::string& profileData, char sepera
 }
 
 
-// Geht namen durch und speichert sie in variablen
-
+// Geht datei namen in Ordner durch und speichert sie in variablen als klarname und pfad
 std::vector<std::vector<std::string>> searchForNames()
 {
     bool inLoop = true;
@@ -106,20 +103,25 @@ std::vector<std::vector<std::string>> searchForNames()
 
         isValidPath = std::filesystem::is_directory(folderPath);
 
-        if (folderPath == "x" || folderPath == "X") // Exit Condition
-        {
 
+        // Exit Condition
+        if (folderPath == "x" || folderPath == "X") 
+        {
+            print("=========================================================================");
+            print("=========================================================================");
+            print("Successfully finished parsing Folder!");
+            print("=========================================================================");
+            print("=========================================================================");
+
+            print("Press Any Key");
+            _getch();
+            system("cls");
             inLoop = false;
             std::vector<std::vector<std::string>> result;
             result.push_back(fileName);
             result.push_back(filePaths);
-            // Debug
-            //for (int i = 0; i < result[1].size(); i++)
-            //{
-            //    print(result[1][i]);
-            //}
-
             return result;
+
 
         }
         else
@@ -127,8 +129,8 @@ std::vector<std::vector<std::string>> searchForNames()
             if (isValidPath == true)
             {
 
-
-                for (const auto& entry : std::filesystem::directory_iterator(folderPath))   // Für jede Datei im Verzeichnis in ein Vektor Speichern als Name und als Pfad
+                // Für jede Datei im Verzeichnis in ein Vektor Speichern als Name und als Pfad
+                for (const auto& entry : std::filesystem::directory_iterator(folderPath))   
                 {
                     if (entry.is_regular_file()) {
                         // Vollständiger Pfad zur Datei hinzufügen
@@ -139,41 +141,54 @@ std::vector<std::vector<std::string>> searchForNames()
                     }
 
                 }
-                /* Debugging
-               for (int i = 0 ; i < fileNames.size(); i++)
-               {
-                   print(fileNames[i]);
-               }
-               for (int i = 0; i < filePaths.size(); i++)
-               {
-                   print(filePaths[i]);
-               }
-               */
 
-                for (int i = 0; i < fileNameDirty.size(); i++)   // .uasset von datein entdernen
+                // .uasset von datein entdernen für den Filename
+                for (int i = 0; i < fileNameDirty.size(); i++)   
                 {
-                    std::string tempString = fileNameDirty[i];
-                    auto start_position_to_erase = tempString.find(".uasset");
+                    if (fileNameDirty[i].find(".uasset") != std::string::npos)
+                    {
+                        std::string tempString = fileNameDirty[i];
+                        auto start_position_to_erase = tempString.find(".uasset");
+                        tempString.erase(start_position_to_erase, 7);
+                        fileName.push_back(tempString);
 
-                    tempString.erase(start_position_to_erase, 7);
-                    fileName.push_back(tempString);
-
-                    // Debug
-                    //print(tempString);
+                        // Debug
+                        //print(tempString);
+                    }
+                    else
+                    {
+                        print("atleast one File in Folder wasn't a .uasset");
+                        print(fileNameDirty[i]);
+                    }
                 }
 
-                for (int i = 0; i < filePathsDirty.size(); i++)    // Pfad umändern damit er bei game beginnt und ohne .uasset endung
+                // Pfad umändern damit er bei game beginnt und ohne .uasset endung und als Pfad speichern
+                for (int i = 0; i < filePathsDirty.size(); i++)    
                 {
-                    std::string tempString = filePathsDirty[i];
-                    auto const start_pos_to_replace_content = tempString.find("Content");
-                    tempString = tempString.substr(start_pos_to_replace_content);
-                    tempString = tempString.replace(0, 7, "Game");
+                    if (fileNameDirty[i].find(".uasset") != std::string::npos)
+                    {
+                            // Pfad umändern
+                            std::string tempString = filePathsDirty[i];
+                            auto const start_pos_to_replace_content = tempString.find("Content");
+                            tempString = tempString.substr(start_pos_to_replace_content);
+                            tempString = tempString.replace(0, 7, "Game");
+                           // tempString = tempString.replace("\\", 1, "\/");
+                            std::replace(tempString.begin(), tempString.end(), '\\', '/');  
 
-                    auto const start_pos_to_replace_uasset = tempString.find(".uasset");
-                    tempString = tempString.erase(start_pos_to_replace_uasset, 7);
-                    filePaths.push_back(tempString);
+                            // uasset endung entfernen
+                            auto const start_pos_to_replace_uasset = tempString.find(".uasset");
+                            tempString = tempString.erase(start_pos_to_replace_uasset, 7);
+                            filePaths.push_back(tempString);
 
-                    // Debug
+
+                    }
+                    else // Falls eine datei keine .uasset endung hat
+                    {
+                        print("atleast one File in Folder wasn't a .uasset");
+                        print(fileNameDirty[i]);
+                    }
+
+                    // Debug 
                     //print(tempString);
 
                 }
@@ -187,6 +202,12 @@ std::vector<std::vector<std::string>> searchForNames()
                 print(folderPath);
             }
         }
+        print("===============================");
+        print("Folder was Successfully Parsed!");
+        print("===============================");
+        print("Press Any Key");
+        _getch();
+        system("cls");
     }
 
 
@@ -195,14 +216,59 @@ std::vector<std::vector<std::string>> searchForNames()
 }
 
 
-std::vector<std::vector<std::string>> match(std::vector<std::string> searchFileNames, std::vector<std::string> SearchFilePaths,std::vector<std::string> materialList)
+
+
+// collectMaterialList Funktion um eine liste mit materialien durchzu parsen
+std::vector<std::string> CollectMaterialList()
+{
+    std::string listPath;
+    std::string line;
+    std::vector<std::string> materialList;
+    bool inputFalse = true;
+
+    while (inputFalse == true)
+    {
+        print("Please enter the path to your unformatted list");
+        std::cin >> listPath;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        std::ifstream infile(listPath);
+
+        if (!infile.is_open())
+        {
+            std::cerr << "Error: Unable to open file please make Sure this Path is correct " << listPath << std::endl;
+            
+        }
+        if (infile.is_open())
+        {
+            inputFalse = false;
+        }
+        if (inputFalse == false)
+        {
+            while (std::getline(infile, line))
+            {
+
+                materialList.push_back(line);
+                
+            }
+        }
+    }
+    print("=======================");
+    print("=======================");
+    print("Successfully Read File!");
+    print("=======================");
+    print("=======================");
+    return materialList;
+}
+
+
+// match funktion um listen mit materialiste abzugleichen und eine vollständige liste der matches auszugeben || erfordert eine material liste, eine klarnamen liste und eine pfad liste
+std::vector<std::vector<std::string>> match(const std::vector<std::string>& searchFileNames, const std::vector<std::string>& SearchFilePaths, const std::vector<std::string>& materialList)
 {
     std::vector<std::vector<std::string>> result;
     std::vector<std::string> searchString;
     std::vector<std::string> materialReplacement;
     std::vector<std::string> name;
-    bool foundFlag = false;
-    int foundIndex = 0;
 
 
 
@@ -214,13 +280,13 @@ std::vector<std::vector<std::string>> match(std::vector<std::string> searchFileN
         {
             searchString.push_back(materialListItem);
             materialReplacement.push_back(SearchFilePaths[it - searchFileNames.begin()]);
-//            name.push_back(std::to_string(i));  
+            //            name.push_back(std::to_string(i));  
         }
-        else 
+        else
         {
             searchString.push_back(materialListItem);
             materialReplacement.push_back("None");
- //           name.push_back(std::to_string(i));
+            //           name.push_back(std::to_string(i));
         }
     }
 
@@ -233,36 +299,56 @@ std::vector<std::vector<std::string>> match(std::vector<std::string> searchFileN
 
 }
 
-std::vector<std::string> CollectMaterialList()
+
+// Speichert alle inhalte der Listen formatiert in eine .json
+void saveDTMS(std::vector<std::vector<std::string>> inputLists)
 {
-    std::string listPath;
-    std::string line;
-    std::vector<std::string> materialList;
 
-    print("Pleaser enter the path to your unformated list");
-    std::cin >> listPath;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::vector<std::string> searchString = inputLists[0];
+    std::vector<std::string> materialReplacement = inputLists[1];
+    int index_ID = 0;
+    std::string preFix = "/Script/Engine.Material'/";
+    //print("Please Input Folder where to save");
 
-    std::ifstream infile(listPath);
+    std::ofstream outFile("Dataset.json");
 
-    if (!infile.is_open())
+
+    outFile << "[";
+    outFile << "\n";
+    if (outFile.is_open())
     {
-        std::cerr << "Error: Unable to open file please Makre Sure this Path is correct " << listPath << std::endl;
-        return materialList; // Return an empty list on failure
+        for (auto searchStringItem : searchString)
+        {
+            
+           
+           index_ID++;
+           outFile << " " << "{" << "\n";
+           outFile << " " << " " << "\"Name\": " << "\"" << index_ID << "\"," << "\n";
+           outFile << " " << " " << "\"SearchString\": " << "\"" << searchStringItem << "\"," << "\n";
+           outFile << " " << " " << "\"StringMatch\": " << "\"ExactMatch\"," << "\n";
+           outFile << " " << " " << "\"MaterialReplacement\": " << "\"" << preFix << materialReplacement[index_ID-1] << "." << searchStringItem << "'" << "\"" << "\n";
+           if (searchStringItem == searchString.back())
+           {
+               outFile << " " << "}" << "\n";
+           }
+           else
+           {
+               outFile << " " << "}," << "\n";
+           }
+                
+
+            
+
+            
+            
+            
+        }
+        if (searchString.size() > 1)
+        {
+            print("File Succesfully Written");
+            outFile << "]";
+            outFile << "\n";
+        }
     }
 
-    while (std::getline(infile, line))
-    {
-
-        materialList.push_back(line);
-
-    }
-
-    for (int i = 0; i < materialList.size(); i++)
-    {
-
-        print(materialList[i]);
-
-    }
-    return materialList;
 }

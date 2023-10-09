@@ -1,1 +1,7 @@
-﻿  DTMS_Creator.vcxproj -> C:\Users\mschulz\Documents\cppp\DTMS_Creator\x64\Debug\DTMS_Creator.exe
+﻿  MyFunctions.cpp
+D:\Hax0rStuff\cppp\DTMS_Creator\DTMS_Creator\MyFunctions.cpp(312,27): warning C4129: "V": nicht erkannte Folge von Escapesequenz
+D:\Hax0rStuff\cppp\DTMS_Creator\DTMS_Creator\MyFunctions.cpp(312,27): warning C4129: "C": nicht erkannte Folge von Escapesequenz
+D:\Hax0rStuff\cppp\DTMS_Creator\DTMS_Creator\MyFunctions.cpp(312,27): warning C4129: "A": nicht erkannte Folge von Escapesequenz
+D:\Hax0rStuff\cppp\DTMS_Creator\DTMS_Creator\MyFunctions.cpp(312,27): warning C4129: "D": nicht erkannte Folge von Escapesequenz
+D:\Hax0rStuff\cppp\DTMS_Creator\DTMS_Creator\MyFunctions.cpp(216): warning C4715: "searchForNames": Nicht alle Codepfade geben einen Wert zurück.
+  DTMS_Creator.vcxproj -> D:\Hax0rStuff\cppp\DTMS_Creator\x64\Debug\DTMS_Creator.exe

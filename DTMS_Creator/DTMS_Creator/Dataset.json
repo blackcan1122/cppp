@@ -1,0 +1,50 @@
+[
+ {
+  "Name": "1",
+  "SearchString": "M_Additive_Master",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.M_Additive_Master'"
+ },
+ {
+  "Name": "2",
+  "SearchString": "M_BrakeRotor_Master",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.M_BrakeRotor_Master'"
+ },
+ {
+  "Name": "3",
+  "SearchString": "M_CarPaint_Master",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.M_CarPaint_Master'"
+ },
+ {
+  "Name": "4",
+  "SearchString": "M_Decal_Master",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.M_Decal_Master'"
+ },
+ {
+  "Name": "5",
+  "SearchString": "M_Emissive_Master",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.M_Emissive_Master'"
+ },
+ {
+  "Name": "6",
+  "SearchString": "Dickeeier",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.Dickeeier'"
+ },
+ {
+  "Name": "7",
+  "SearchString": "Fettemoepse",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.Fettemoepse'"
+ },
+ {
+  "Name": "8",
+  "SearchString": "undSperma",
+  "StringMatch": "ExactMatch",
+  "MaterialReplacement": "/Script/Engine.Material'/None.undSperma'"
+ }
+]

@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include "MyFunctions.h"
+#include <conio.h>
 
 
 // Programm um eine Liste an Einträgen in eine richtig aussehende DTMS zu verwandeln.
@@ -27,23 +28,14 @@ int main()
     {
          materialList = CollectMaterialList();
 
+         print("Press Any Key");
+         _getch();
+         system("cls");
+
          extracedNamesAndPaths = searchForNames();
 
          extracedNames = extracedNamesAndPaths[0];
          extracedPaths = extracedNamesAndPaths[1];
-
-         //for (int i = 0; i < extracedNames.size(); i++)
-         //{
-
-         //    print(extracedNames[i]);
-
-         //}
-         //for (int i = 0; i < extracedPaths.size(); i++)
-         //{
-
-         //    print(extracedPaths[i]);
-
-         //}
 
          matchVector = match(extracedNames, extracedPaths, materialList);
          searchString = matchVector[0];
@@ -51,15 +43,7 @@ int main()
          name = matchVector[2];
 
 
-         for (int i = 0; i < searchString.size(); i++)
-         {
-
-             std::cout << materialReplacement[i] << "\n";
-             std::cout << searchString[i] << "\n";
-             std::cout << "\n";
-             std::cout << "\n";
-             std::cout << "\n";
-         }
+         saveDTMS(matchVector);
 
 
         isRunning = exitCond();
