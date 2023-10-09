@@ -6,7 +6,8 @@
 #include <sys/stat.h>
 #include <locale>
 #include <filesystem>
-#include <__msvc_filebuf.hpp>
+#include <fstream>
+#include <sstream>
 
 bool exitCond() {
     bool SpellCheckExit = true;
@@ -80,6 +81,7 @@ std::vector<std::string> splitstring(const std::string& profileData, char sepera
 }
 
 
+// Geht namen durch und speichert sie in variablen
 
 std::vector<std::vector<std::string>> searchForNames()
 {
@@ -190,4 +192,77 @@ std::vector<std::vector<std::string>> searchForNames()
 
 
 
+}
+
+
+std::vector<std::vector<std::string>> match(std::vector<std::string> searchFileNames, std::vector<std::string> SearchFilePaths,std::vector<std::string> materialList)
+{
+    std::vector<std::vector<std::string>> result;
+    std::vector<std::string> searchString;
+    std::vector<std::string> materialReplacement;
+    std::vector<std::string> name;
+    bool foundFlag = false;
+    int foundIndex = 0;
+
+
+
+
+    for (auto materialListItem : materialList)
+    {
+        auto it = std::find(searchFileNames.begin(), searchFileNames.end(), materialListItem);
+        if (it != searchFileNames.end())
+        {
+            searchString.push_back(materialListItem);
+            materialReplacement.push_back(SearchFilePaths[it - searchFileNames.begin()]);
+//            name.push_back(std::to_string(i));  
+        }
+        else 
+        {
+            searchString.push_back(materialListItem);
+            materialReplacement.push_back("None");
+ //           name.push_back(std::to_string(i));
+        }
+    }
+
+    // Make Result Vector
+
+    result.push_back(searchString);
+    result.push_back(materialReplacement);
+    result.push_back(name);
+    return result;
+
+}
+
+std::vector<std::string> CollectMaterialList()
+{
+    std::string listPath;
+    std::string line;
+    std::vector<std::string> materialList;
+
+    print("Pleaser enter the path to your unformated list");
+    std::cin >> listPath;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::ifstream infile(listPath);
+
+    if (!infile.is_open())
+    {
+        std::cerr << "Error: Unable to open file please Makre Sure this Path is correct " << listPath << std::endl;
+        return materialList; // Return an empty list on failure
+    }
+
+    while (std::getline(infile, line))
+    {
+
+        materialList.push_back(line);
+
+    }
+
+    for (int i = 0; i < materialList.size(); i++)
+    {
+
+        print(materialList[i]);
+
+    }
+    return materialList;
 }

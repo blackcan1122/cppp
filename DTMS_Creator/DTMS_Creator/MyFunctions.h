@@ -13,3 +13,7 @@ bool isWhitespace(unsigned char c);
 
 
 std::vector<std::vector<std::string>> searchForNames();
+
+std::vector<std::vector<std::string>> match(std::vector<std::string> searchFileNames, std::vector<std::string> SearchFilePaths, std::vector<std::string> materialList);
+
+std::vector<std::string> CollectMaterialList();
