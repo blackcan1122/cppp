@@ -3,13 +3,13 @@
 #include <string>
 #include <math.h>
 #include "MyFunctions.h"
-
 #include <conio.h>
 #include <sys/stat.h>
 #include <locale>
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+
 
 
 //Exit Condition abfrage

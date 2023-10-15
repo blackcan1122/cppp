@@ -8,6 +8,10 @@
 
 
 // Programm um eine Liste an Einträgen in eine richtig aussehende DTMS zu verwandeln.
+// DTMS Creator 
+// Author Marcel Schulz
+// Version 0.8
+// 12.10.2023
 
 int main()
 {
