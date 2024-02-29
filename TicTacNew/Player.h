@@ -21,7 +21,7 @@ public:
 
     bool isPlayerOrHuman();
 
-    bool validInput(std::string input, Board& currentboard);
+    bool validInputAI(std::string input, Board& currentboard);
 
     int minimax(Board& currentBoard, int depth, bool isMaximizing);
 

@@ -122,6 +122,46 @@ void Board::updatePlayboard(std::string input, bool PlayerOne)
 
 }
 
+void Board::updatePlayboardForSimulation(std::string input, bool PlayerOne)
+{
+    char charcordA = toupper(input[0]);
+    char charcordB = input[1];
+
+
+    int cordA = charcordA - 'A'+1;
+    int cordB = charcordB - '0'+1;
+
+    std::vector<std::vector<std::string>> tempvPlayboard = getvPlayboard();
+
+    if(PlayerOne == true)
+    {
+        tempvPlayboard[cordB][cordA] = "[X]";
+    }
+    else
+    {
+        tempvPlayboard[cordB][cordA] = "[O]";
+    }
+    
+    vPlayboard = tempvPlayboard;
+
+}
+
+void Board::resetPlayboardForRecursion(std::string input)
+{
+    char charcordA = toupper(input[0]);
+    char charcordB = input[1];
+
+
+    int cordA = charcordA - 'A'+1;
+    int cordB = charcordB - '0'+1;
+
+    std::vector<std::vector<std::string>> tempvPlayboard = getvPlayboard();
+
+    tempvPlayboard[cordB][cordA] = "[ ]";
+
+    vPlayboard = tempvPlayboard;
+}
+
 void Board::validCol()
 {
     std::vector<char> tempCol;
@@ -220,6 +260,22 @@ void Board::validRows()
 
     }
 
+std::vector<std::string> Board::getEmptyCells()
+{
+    emptyCells.clear();
+    for (int i = 1; i < vPlayboard.size(); i++)
+    {
+        for (int j = 1; j < vPlayboard[i].size();j++)
+        {
+            if (vPlayboard[j][i] == "[ ]")
+            {
+                emptyCells.push_back(vPlayboard[j][i]);
+            }
+        }
+            
+    }
+    return emptyCells;
+}
 
     std::vector<std::string> Board::validColStr()
     {

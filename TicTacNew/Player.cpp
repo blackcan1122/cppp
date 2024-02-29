@@ -7,6 +7,37 @@
 #include <utility>
 
 
+bool Player::isPlayerOrHuman()
+{
+    return isPlayer;
+        
+
+}
+
+bool Player::validInputAI(std::string input, Board& currentboard)
+{
+    std::vector<std::vector<std::string>> Playboard = currentboard.getvPlayboard();
+    char charcordA = toupper(input[0]);
+    char charcordB = input[1];
+
+
+    int cordA = charcordA - 'A'+1;
+    int cordB = charcordB - '0'+1;
+
+    if (Playboard[cordB][cordA] == "[X]" || Playboard[cordB][cordA] == "[O]")
+    {
+        return false;
+    }
+    else if (Playboard[cordB][cordA] == "[ ]")
+    {
+        return true;
+    }
+    {
+        return false;
+    }
+
+}
+
 std::string Player::calcMove(Board& currentBoard)
 {
     int bestScore = -INFINITY;
@@ -24,13 +55,11 @@ std::string Player::calcMove(Board& currentBoard)
             currentMove = strVCols[j]+strVRows[i];           
 
             //Validierung ob das Feld bereits belegt ist
-            if (validInput(currentMove, currentBoard) == true)
+            if (validInputAI(currentMove, currentBoard) == true)
             {
-                currentBoard.saveCurrentPlayboard();
-                currentBoard.updatePlayboard(currentMove,false);
-                currentBoard.printBoard();
+                currentBoard.updatePlayboardForSimulation(currentMove,false);
                 currentScore = minimax(currentBoard,0,false);
-                currentBoard.resetSavedPlayboard();
+                currentBoard.resetPlayboardForRecursion(currentMove); 
                 if (currentScore > bestScore)
                 {
                     bestScore = currentScore;
@@ -38,66 +67,16 @@ std::string Player::calcMove(Board& currentBoard)
                 }
 
             }
-
-            currentMove.clear();
-            
         }
         
     }
-    currentBoard.updatePlayboard(bestMove,false);
-    currentBoard.printBoard();
     return  bestMove;
 
 
 }
 
-bool Player::isPlayerOrHuman()
-{
-    return isPlayer;
-        
-
-}
-
-bool Player::validInput(std::string input, Board& currentboard)
-
-{
-    std::vector<std::string> taken = currentboard.getIsTaken();
-    bool isNotAlreadyTaken = std::find(taken.begin(), taken.end(), input) != taken.end();
-    if (isNotAlreadyTaken == false)
-    {
-        if (input.length() == 2)
-        {
-
-        
-            std::vector<char> validCols = currentboard.getValidCols();
-            std::vector<char> validRows = currentboard.getValidRows();
-
-            bool isValidCols = std::find(validCols.begin(), validCols.end(), input[0]) != validCols.end();
-            bool isValidRows = std::find(validRows.begin(), validRows.end(), input[1]) != validRows.end();
-
-            bool isValid = isValidCols && isValidRows;
-            return isValid;
-
-        }
-        else 
-        {
-            
-            return false;
-
-        }
-    }
-    else 
-    {
-       
-        return false;
-    }
-
-}
-
-
 int Player::minimax(Board& currentBoard, int depth, bool isMaximizing)
 {
-    std::cout << depth << "\n";
     std::vector<std::string> strVRows = currentBoard.validRowsStr();
     std::vector<std::string> strVCols =currentBoard.validColStr();
 
@@ -106,7 +85,6 @@ int Player::minimax(Board& currentBoard, int depth, bool isMaximizing)
     int result = winCond(currentBoard);
     if (result != score["Tie"])
     {
-        currentBoard.resetSavedPlayboard();
         return result;
         
     }
@@ -129,26 +107,23 @@ int Player::minimax(Board& currentBoard, int depth, bool isMaximizing)
                 currentMove = strVCols[j]+strVRows[i];           
 
                 //Validierung ob das Feld bereits belegt ist
-                if (validInput(currentMove, currentBoard) == true)
+                if (validInputAI(currentMove, currentBoard) == true)
                 {
-                    currentBoard.saveCurrentPlayboard();
-                    currentBoard.updatePlayboard(currentMove,false);
+                    currentBoard.updatePlayboardForSimulation(currentMove,false);
                     currentBoard.printBoard();
+                    std::cout << depth << "\n";
                     currentScore = minimax(currentBoard, depth+1, false);
-                    currentBoard.resetSavedPlayboard();
+                    currentBoard.resetPlayboardForRecursion(currentMove);
 
                     if (currentScore > bestScore)
                     {
                         bestScore = currentScore;
                     }
-
                 }
-
-                currentMove.clear();
-                
             }
             
         }
+        return bestScore;
     }
 
     // Minimizing Player
@@ -169,30 +144,27 @@ int Player::minimax(Board& currentBoard, int depth, bool isMaximizing)
                 currentMove = strVCols[j]+strVRows[i];           
 
                 //Validierung ob das Feld bereits belegt ist
-                if (validInput(currentMove, currentBoard) == true)
+                if (validInputAI(currentMove, currentBoard) == true)
                 {
-                    currentBoard.saveCurrentPlayboard();
-                    currentBoard.updatePlayboard(currentMove,true);
+                    currentBoard.updatePlayboardForSimulation(currentMove,true);
                     currentBoard.printBoard();
+                    std::cout << depth << "\n";
                     currentScore = minimax(currentBoard, depth+1, true);
-                    currentBoard.resetSavedPlayboard();
+                    currentBoard.resetPlayboardForRecursion(currentMove);
                     if (currentScore < bestScore)
                     {
                         bestScore = currentScore;
                     }
-
                 }
-
-                currentMove.clear();
-                
             }
             
         }
+        return bestScore;
     }
 }
 
 
-
+// Iwas geht hier vorsich kein plan sollt ich mal checken
 int Player::winCond(Board& currentboard)
 {
 
@@ -201,8 +173,11 @@ int Player::winCond(Board& currentboard)
 
     currentboard.getIsTakenO();
     currentboard.getIsTakenX();
-    int fullboard;
-    fullboard = currentboard.getIsTakenO().size() + currentboard.getIsTakenX().size();
+    bool fullboard = false;
+    if (currentboard.getEmptyCells().size() == 0)
+    {
+        fullboard = true;
+    }
 
     // checkBoard.erase(checkBoard.begin()+1);
     
@@ -237,7 +212,7 @@ int Player::winCond(Board& currentboard)
     {
         return 1;
     }
-    if(fullboard = 9)
+    if(fullboard == true)
     {
         return 0;
     }
