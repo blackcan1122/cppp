@@ -8,6 +8,7 @@ class Player
 {
     bool isPlayer; // AI or Human
     int scoreCount;
+    int loopCount;
 
 public:
 

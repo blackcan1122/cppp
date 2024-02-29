@@ -11,53 +11,63 @@
 int Gamelogic::winCond()
 {
 
-std::vector<std::vector<std::string>> checkBoard = board1.getvPlayboard();
-std::string winMark = " ";
+    std::vector<std::vector<std::string>> checkBoard = board1.getvPlayboard();
+    std::string winMark = " ";
 
-board1.getIsTakenO();
-board1.getIsTakenX();
+    bool fullboard = false;
 
-// checkBoard.erase(checkBoard.begin()+1);
-
-for (int i = 1; i < checkBoard.size(); i++)
-{
-    for (int j = 1; j < checkBoard[i].size();j++)
+    int emptyBoard;
+    emptyBoard = board1.getEmptyCells();
+    if (emptyBoard == 0)
     {
-        if(checkBoard[i][1] == checkBoard[i][2] && checkBoard[i][2]  == checkBoard[i][3] && (checkBoard[i][1] == "[X]" || checkBoard[i][1] == "[O]" ))
-        {
-            winMark = checkBoard[i][1];
-        }
-        if(checkBoard[1][j] == checkBoard[2][j] && checkBoard[2][j]  == checkBoard[3][j] && (checkBoard[1][j] == "[X]" || checkBoard[1][j] == "[O]" ))
-        {
-            winMark = checkBoard[1][j];
-        }
+        fullboard = true;
     }
-        if(checkBoard[1][1] == checkBoard[2][2] && checkBoard[2][2] == checkBoard[3][3] && (checkBoard[1][1] == "[X]" || checkBoard[1][1] == "[O]" ))
-        {
-            winMark = checkBoard[1][1];
-        }
-        if(checkBoard[1][3] == checkBoard[2][2] && checkBoard[2][2] == checkBoard[3][1]&& (checkBoard[1][3] == "[X]" || checkBoard[1][3] == "[O]" ))
-        {
-            winMark = checkBoard[1][3];
-        }
-}
 
-if (winMark == "[X]")
+    // checkBoard.erase(checkBoard.begin()+1);
+    
+    for (int i = 1; i <= 3; i++) 
 {
-    return -1;
-}   
-else if(winMark=="[O]")
-{
-    return 1;
+    if (checkBoard[i][1] == checkBoard[i][2] && checkBoard[i][2] == checkBoard[i][3] && (checkBoard[i][1] == "[X]" || checkBoard[i][1] == "[O]")) {
+        winMark = checkBoard[i][1];
+        break; // Sobald eine Gewinnbedingung gefunden wurde, kann die Schleife abgebrochen werden
+    }
 }
-else 
+for (int j = 1; j <= 3; j++) 
 {
-    return 0;
+    if (checkBoard[1][j] == checkBoard[2][j] && checkBoard[2][j] == checkBoard[3][j] && (checkBoard[1][j] == "[X]" || checkBoard[1][j] == "[O]")) {
+        winMark = checkBoard[1][j];
+        break; // Sobald eine Gewinnbedingung gefunden wurde, kann die Schleife abgebrochen werden
+    }
 }
+    if(checkBoard[1][1] == checkBoard[2][2] && checkBoard[2][2] == checkBoard[3][3] && (checkBoard[1][1] == "[X]" || checkBoard[1][1] == "[O]" ))
+    {
+        winMark = checkBoard[1][1];
+    }
+    if(checkBoard[1][3] == checkBoard[2][2] && checkBoard[2][2] == checkBoard[3][1]&& (checkBoard[1][3] == "[X]" || checkBoard[1][3] == "[O]" ))
+    {
+        winMark = checkBoard[1][3];
+    }
 
 
+    if (winMark == "[X]")
+    {
+        return -1;
+    }   
+    else if(winMark=="[O]")
+    {
+        return 1;
+    }
+    else if(fullboard == true)
+    {
+        return 0;
+    }
+    else
+    {
+        return 2;
+    }
 
-
+    
+    
 }
 
 void Gamelogic::gameloop()
@@ -138,7 +148,7 @@ Board Gamelogic::getBoardInstance()
 return board1;
 }
 
-bool Gamelogic::validInput(std::string input)
+bool Gamelogic::validInput(std::string& input)
 
 {
 std::vector<std::string> taken = board1.getIsTaken();

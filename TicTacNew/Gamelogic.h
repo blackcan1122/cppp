@@ -27,7 +27,7 @@ public:
 
     // Ruft die funktion des bretts ab
 
-    bool validInput(std::string input);
+    bool validInput(std::string& input);
 
 
     // Ruft Funktionen der Player Klasse

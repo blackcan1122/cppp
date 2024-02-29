@@ -19,7 +19,7 @@ private:
     //Attribute für Valide Rows and cols
     std::vector<char> vRows;
     std::vector<char> vCol;
-    std::vector<std::string> emptyCells;
+    int emptyCells;
 
 
 
@@ -30,9 +30,9 @@ public:
     void generatePlayboard();
 
 
-    void updatePlayboard(std::string input, bool PlayerOne);
-    void updatePlayboardForSimulation(std::string input, bool PlayerOne);
-    void resetPlayboardForRecursion(std::string input);
+    void updatePlayboard(std::string& input, bool PlayerOne);
+    void updatePlayboardForSimulation(std::string& input, bool PlayerOne);
+    void resetPlayboardForRecursion(std::string& input);
 
 
     // Get Methods
@@ -41,7 +41,7 @@ public:
     std::vector<std::string> getIsTakenX();
     std::vector<std::string> getIsTakenO();
     std::vector<std::vector<std::string>> getvPlayboard();
-    std::vector<std::string> getEmptyCells();
+    int getEmptyCells();
 
         // Methods for Getting Valid Row and Cols
     std::vector<char>getValidRows();
@@ -51,8 +51,8 @@ public:
 
     // Set Methods
 
-    std::vector<std::string> addItemtoIsTakenX(std::string itemToAdd);
-    std::vector<std::string> addItemtoIsTakenO(std::string itemToAdd);
+    std::vector<std::string> addItemtoIsTakenX(std::string& itemToAdd);
+    std::vector<std::string> addItemtoIsTakenO(std::string& itemToAdd);
     bool saveCurrentPlayboard();
     bool resetSavedPlayboard();
 

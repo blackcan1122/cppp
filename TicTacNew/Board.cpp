@@ -32,9 +32,6 @@ void Board::generatePlayboard()
 
 }
 
-
-
-
 void Board::printBoard()
 {
     for (const auto& row : vPlayboard) 
@@ -46,7 +43,6 @@ void Board::printBoard()
     }
 
 }
-
 
 std::vector<std::vector<std::string>> Board::getvPlayboard()
 {
@@ -73,20 +69,19 @@ std::vector<std::string> Board::getIsTakenO()
     return isTakenO;
 }
 
-std::vector<std::string> Board::addItemtoIsTakenX(std::string itemToAdd)
+std::vector<std::string> Board::addItemtoIsTakenX(std::string& itemToAdd)
 {
     isTakenX.push_back(itemToAdd);
     return isTakenX;
 }
 
-std::vector<std::string> Board::addItemtoIsTakenO(std::string itemToAdd)
+std::vector<std::string> Board::addItemtoIsTakenO(std::string& itemToAdd)
 {
     isTakenO.push_back(itemToAdd);
     return isTakenO;
 }
 
-
-void Board::updatePlayboard(std::string input, bool PlayerOne)
+void Board::updatePlayboard(std::string& input, bool PlayerOne)
 {
 
     // Beispiel B1
@@ -122,7 +117,7 @@ void Board::updatePlayboard(std::string input, bool PlayerOne)
 
 }
 
-void Board::updatePlayboardForSimulation(std::string input, bool PlayerOne)
+void Board::updatePlayboardForSimulation(std::string& input, bool PlayerOne)
 {
     char charcordA = toupper(input[0]);
     char charcordB = input[1];
@@ -146,7 +141,7 @@ void Board::updatePlayboardForSimulation(std::string input, bool PlayerOne)
 
 }
 
-void Board::resetPlayboardForRecursion(std::string input)
+void Board::resetPlayboardForRecursion(std::string& input)
 {
     char charcordA = toupper(input[0]);
     char charcordB = input[1];
@@ -189,7 +184,6 @@ void Board::validRows()
     vRows = tempRow;
 }
 
-
     std::vector<char> Board::getValidCols()
     {
         return vCol;
@@ -199,7 +193,6 @@ void Board::validRows()
     {
         return vRows;
     }
-
 
     bool Board::saveCurrentPlayboard()
     {
@@ -231,7 +224,6 @@ void Board::validRows()
         }
     }
 
-
     std::vector<std::string> Board::validRowsStr()
     {
 
@@ -260,16 +252,16 @@ void Board::validRows()
 
     }
 
-std::vector<std::string> Board::getEmptyCells()
+int Board::getEmptyCells()
 {
-    emptyCells.clear();
+    emptyCells = 0;
     for (int i = 1; i < vPlayboard.size(); i++)
     {
         for (int j = 1; j < vPlayboard[i].size();j++)
         {
             if (vPlayboard[j][i] == "[ ]")
             {
-                emptyCells.push_back(vPlayboard[j][i]);
+                emptyCells++;
             }
         }
             
