@@ -24,9 +24,8 @@ public:
 
     bool validInputAI(std::string input, Board& currentboard);
 
-    int minimax(Board& currentBoard, int depth, bool isMaximizing);
+    int minimax(Board& currentBoard, int depth, int alpha, int beta, bool isMaximizing);
 
     int winCond(Board& currentboard);
 
 };
-

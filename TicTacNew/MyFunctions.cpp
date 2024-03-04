@@ -6,7 +6,6 @@
 #include <conio.h>
 #include <sys/stat.h>
 #include <locale>
-#include <filesystem>
 #include <fstream>
 #include <sstream>
 

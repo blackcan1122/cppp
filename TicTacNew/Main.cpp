@@ -13,10 +13,13 @@
 int main ()
 {
     std::string userInput;
+    bool restart = true;
     bool userInputConverted = true;
 
-    std::cout << "Do you want to Play against a Human?\n";
-    std::cout << "Y/N\n";
+    while (restart == true)
+    {
+    print("Do you want to Play against a Human?");
+    print("Y/N");
     std::cin >> userInput;
     system("cls");
     if (userInput[0] == 'y' || userInput[0] == 'Y')
@@ -29,5 +32,18 @@ int main ()
     }
 
     //creating a instance of the class Gamelogic with Player2 Parameter
-    Gamelogic game1(userInputConverted);
+        Gamelogic game1(userInputConverted);
+        print("Do you want to Restart the Game?");
+        print("Y/N");
+        std::cin >> userInput;
+        system("cls");
+        if (userInput[0] == 'y' || userInput[0] == 'Y')
+        {
+            restart = true;
+        } 
+        else 
+        {
+            restart = false;
+        }
+    }
 }

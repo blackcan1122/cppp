@@ -1,6 +1,7 @@
 #pragma once
 #include "Board.h"
 #include "Player.h"
+#include "MyFunctions.h"
 
 class Gamelogic
 {
@@ -24,6 +25,11 @@ public:
     {
         gameloop();
     }
+    // Deconstructor
+    ~Gamelogic()
+    {
+        print("Game1 Was Terminated");
+    }
 
     // Ruft die funktion des bretts ab
 
@@ -37,6 +43,10 @@ public:
     int winCond();
 
     Board getBoardInstance();
+
+    void setIsRunning(const int& isWonReturn);
+
+    bool getIsRunning();
     
 };
 
